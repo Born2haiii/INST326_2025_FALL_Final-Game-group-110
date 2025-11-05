@@ -24,3 +24,8 @@ def winner(nom):
     return {category: name for category,(name,score) in winners.items()}
 
 print(winner(nom))
+
+# Edit by Adib Aayan:
+print("Total nominations:", len(nom))
+print("Categories:", {c for _, c, _ in nom})
+print("Highest overall score:", max(nom, key=lambda x: x[2]))
