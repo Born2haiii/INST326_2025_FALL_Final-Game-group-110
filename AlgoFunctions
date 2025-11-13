@@ -9,12 +9,10 @@ Recipe_STONE_Sword = [
                 ['STICK',' ',' ']]
     
 def Gameboard(userInput): # fake function 
-    board = []
-    board.append([
-                [' ',' ','STONE'],
-                [' ','STONE',' '],
-                ['STICK',' ',' ']
-                ])
+    board =[
+            [' ',' ','STONE'],
+            [' ','STONE',' '],
+            ['STICK',' ',' ']]
     return board
     
     
@@ -22,6 +20,25 @@ def attempts(userInput): # fake function but could be an algo
     return 3
 
 def Crafting_check(board,recipe,attempts):
+    # itterate through rows and collums 
+    item_crafted = 0
+    for rows in range(len(board)):
+        for collum in range(len(board)):
+            if board [rows][collum] != recipe[rows][collum]:
+                return 
+            else:
+                return f'{board} took {attempts} atempts to craft {recipe[recipe]}'
+                    
+            
     
+    #if row/collum cordinate = same as recipe this is true
+    # itterate through every row and collum if the recipe and board have the same 
+    # values at the cordinates the item is crafted 
+            
+   
+   
+   
+   
+    """"
     if board == recipe:
-        return f'{board} took {attempts} atempts to craft {recipe[recipe]}
+        return f'{board} took {attempts} atempts to craft {recipe[recipe]}"""
