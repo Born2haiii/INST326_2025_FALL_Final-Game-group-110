@@ -18,7 +18,10 @@ def Gameboard(userInput): # fake function
     return board
     
     
+def attempts(userInput): # fake function but could be an algo
+    return 3
+
 def Crafting_check(board,recipe,attempts):
-    """
+    
     if board == recipe:
-        return f'{board} took {attempts} atempts to craft {recipe[recipe]}"""
+        return f'{board} took {attempts} atempts to craft {recipe[recipe]}
