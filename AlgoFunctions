@@ -1,2 +1,24 @@
 
+
+
 # brandon fucntion that checks when an item is created
+
+Recipe_STONE_Sword = [
+                [' ',' ','STONE'],
+                [' ','STONE',' '],
+                ['STICK',' ',' ']]
+    
+def Gameboard(userInput): # fake function 
+    board = []
+    board.append([
+                [' ',' ','STONE'],
+                [' ','STONE',' '],
+                ['STICK',' ',' ']
+                ])
+    return board
+    
+    
+def Crafting_check(board,recipe,attempts):
+    """
+    if board == recipe:
+        return f'{board} took {attempts} atempts to craft {recipe[recipe]}"""
