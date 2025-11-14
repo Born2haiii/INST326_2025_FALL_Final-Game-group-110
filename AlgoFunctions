@@ -3,31 +3,34 @@
 
 # brandon fucntion that checks when an item is created
 
-Recipe_STONE_Sword = [
-                [' ',' ','STONE'],
-                [' ','STONE',' '],
-                ['STICK',' ',' ']]
+Recipe_STONE_Sword ={ 
+                "stone sword" : 
+                [
+                ['_','_','STONE'],
+                ['_','STONE','_'],
+                ['STICK','_','_']]}
     
-def Gameboard(userInput): # fake function 
+def Gameboard(): # fake function 
     board =[
-            [' ',' ','STONE'],
-            [' ','STONE',' '],
-            ['STICK',' ',' ']]
+            ['_','_','STONE'],
+            ['_','STONE','_'],
+            ['STICK','_','_']]
     return board
     
     
-def attempts(userInput): # fake function but could be an algo
+def attempts(userInput = 3): # fake function but could be an algo
     return 3
 
-def Crafting_check(board,recipe,attempts):
+def Crafting_check(board,recipeDict,attempted):
     # itterate through rows and collums 
-    item_crafted = 0
+    recipe = recipeDict["stone sword"]
+    
     for rows in range(len(board)):
-        for collum in range(len(board)):
+        for collum in range(len(board[rows])):
             if board [rows][collum] != recipe[rows][collum]:
                 return 
             else:
-                return f'{board} took {attempts} atempts to craft {recipe[recipe]}'
+                return f'{board} took {attempted} atempts to craft the sword'
                     
             
     
@@ -41,4 +44,13 @@ def Crafting_check(board,recipe,attempts):
    
     """"
     if board == recipe:
-        return f'{board} took {attempts} atempts to craft {recipe[recipe]}"""
+        return f'{board} took {attempts} atempts to craft the sword }"""
+        
+if __name__ == "__main__":
+    board = Gameboard()
+    atempted = attempts(3)
+    game1 = Crafting_check(board,Recipe_STONE_Sword,atempted)
+    print(game1)
+    
+       
+        
