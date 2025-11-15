@@ -29,8 +29,9 @@ def Crafting_check(board,recipeDict,attempted):
         for collum in range(len(board[rows])):
             if board [rows][collum] != recipe[rows][collum]:
                 return 
-            else:
-                return f'{board} took {attempted} atempts to craft the sword'
+            
+        return f'{board} took {attempted} atempts to craft the sword'
+            # we can itterate over the outer list to print row by row 
                     
             
     
