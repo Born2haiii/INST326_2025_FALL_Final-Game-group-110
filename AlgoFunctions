@@ -1,7 +1,7 @@
 
 
 
-# brandon fucntion that checks when an item is created
+# Brandon fucntion that checks when an item is created
 
 Recipe_STONE_Sword ={ 
                 "stone sword" : 
@@ -9,6 +9,15 @@ Recipe_STONE_Sword ={
                 ['_','_','STONE'],
                 ['_','STONE','_'],
                 ['STICK','_','_']]}
+
+item_dict = {"WOOD": "W",
+             "WOOD_PLANK": "P",
+             "STONE": "S",
+             "STICK": "T",
+             "IRON_INGOT": "I",
+             "GOLD_INGOT": "G",
+             "DIAMOND": "D"}
+
     
 def Gameboard(): # fake function 
     board =[
@@ -55,20 +64,42 @@ def Crafting_check(board,recipeDict,attempted):
     #if row/collum cordinate = same as recipe this is true
     # itterate through every row and collum if the recipe and board have the same 
     # values at the cordinates the item is crafted 
-            
-   
-   
-   
+
+
    
     """"
     if board == recipe:
         return f'{board} took {attempts} atempts to craft the sword }"""
+    
+# *** Yushen's function that prints the gameboard in the console
+
+def draw_grid(grid):
+    print("   0   1   2")
+    for r in range(3):
+        row_str = f"{r} "
+        for c in range(3):
+            cell = grid[r][c]
+            if cell == "_":
+                symbol = "_"
+            else:
+                symbol = item_dict[cell]
+            row_str += f"[{symbol}] "
+        if r == 1:
+            row_str += " -->  Unkwown"
+        print(row_str)
+    print()
+    
+def draw_screen(grid):
+    print("=== CRAFTING TABLE ===")
+    draw_grid(grid)
+    print("Legend: W = wood, T = stick, P = wood plank, S = stone, I = iron ingot, G = gold ingot, D = diamond")
+    print()
         
 if __name__ == "__main__":
     board = Gameboard()
     atempted = attempts(3)
     game1 = Crafting_check(board,Recipe_STONE_Sword,atempted)
-    print(game1)
+    print(draw_screen(board))
     
        
         
