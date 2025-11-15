@@ -102,4 +102,70 @@ if __name__ == "__main__":
     print(draw_screen(board))
     
        
-        
+
+#Alg 2 checks the fastest path 
+
+#set values for the optimal paths
+OPTIMAL_PATHS = {
+    "stick": [
+        "place wood at 4",
+        "place wood at 7"
+    ],
+    "plank": [
+        "place log at 0"
+    ],
+    "stone_pickaxe": [
+        "place stone at 0",
+        "place stone at 1",
+        "place stone at 2",
+        "place stick at 4",
+        "place stick at 7"
+    ]
+}
+
+def analyze_fastest_path(crafted_item, user_path):
+    """
+    Compare user's crafting steps with the optimal steps.
+    Returns:
+        - is_optimal (bool)
+        - extra_steps (int)
+        - recommended_path (list of strings)
+    """
+    
+    if crafted_item not in OPTIMAL_PATHS:
+        return {
+            "error": "No optimal path defined for this item."
+        }
+
+    optimal_path = OPTIMAL_PATHS[crafted_item]
+    optimal_len = len(optimal_path)
+    user_len = len(user_path)
+
+    is_optimal = (user_len == optimal_len)
+    extra_steps = max(0, user_len - optimal_len)
+
+    return {
+        "crafted_item": crafted_item,
+        "is_optimal": is_optimal,
+        "user_steps": user_len,
+        "optimal_steps": optimal_len,
+        "extra_steps": extra_steps,
+        "recommended_path": optimal_path
+    }
+
+#testing example
+
+if __name__ == "__main__":
+
+    #user made these moves:
+    user_actions = [
+        "place wood at 4",
+        "place wood at 7",
+        "remove item at 8"   # not needed 
+    ]
+
+    result = analyze_fastest_path("stick", user_actions)
+
+    print("RESULT:")
+    for k, v in result.items():
+        print(f"{k}: {v}")
