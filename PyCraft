@@ -9,13 +9,70 @@ Recipe_STONE_Sword ={
                 ['_','_','STONE'],
                 ['_','STONE','_'],
                 ['STICK','_','_']]}
+
+Recipe_Wood_Sword ={ 
+                "wood sword" : 
+                [
+                ['_','_','Wood'],
+                ['_','Wood','_'],
+                ['STICK','_','_']]}
+
+Recipe_Wood_Sword ={ 
+                "wood sword" : 
+                [
+                ['_','_','Diamond'],
+                ['_','Diamond','_'],
+                ['STICK','_','_']]}
+
+
+
+
+
+materials = ["Stone" , "Wood", "Stick", "Diamond)"]
+
+
+Directions = [
+    "A1":(0,0), "A2":(0,1), "A3":(0,2),
+    "B1":(1,0), "B2":(1,1), "B3":(1,2),
+    "C1":(2,1), "C2":(2,1), "B3":(2,2),
+]
     
-def Gameboard(): # fake function 
-    board =[
-            ['_','_','STONE'],
-            ['_','STONE','_'],
-            ['STICK','_','_']]
-    return board
+class Gameboard: # fake function 
+    
+    
+    """example
+    INPUT: " A1,DIAMOND"
+    """
+    def __init__(self,input):
+        self.input = input
+        
+    def inputParse(self):
+        if self.input[0:1] in Directions:
+             self.direction = Directions[self.input[0:1]]
+             
+        if self.input[2:] in materials:
+            
+             
+              
+            pass
+        
+    def appender(self):
+        self.board.index(Directions[self.input[0:1]]).append(materials[self.input[2:]])
+        
+        
+    def Game(self,material,direction):
+        pass
+    
+    def PlayerBoard(self):
+        board =[
+                ['_','_','_'],
+                ['_','_','_'],
+                ['_','_','_']]
+        self.board = board
+        return board
+    
+    def Print(self):
+        pass
     
     
 def attempts(userInput = 3): # fake function but could be an algo
