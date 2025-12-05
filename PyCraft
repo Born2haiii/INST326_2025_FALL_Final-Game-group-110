@@ -28,13 +28,13 @@ Recipe_Wood_Sword ={
 
 
 
-materials = ["Stone" , "Wood", "Stick", "Diamond)"]
+materials = ["Stone", "Wood", "STICK", "Diamond)"]
 
 
 Directions = [
-    "A1":(0,0), "A2":(0,1), "A3":(0,2),
-    "B1":(1,0), "B2":(1,1), "B3":(1,2),
-    "C1":(2,1), "C2":(2,1), "B3":(2,2),
+    "A1":(0,0), "B1":(0,1), "C1":(0,2),
+    "A2":(1,0), "B2":(1,1), "C2":(1,2),
+    "A3":(2,1), "B3":(2,1), "C3":(2,2),
 ]
     
 class Gameboard: # fake function 
@@ -43,10 +43,19 @@ class Gameboard: # fake function
     """example
     INPUT: " A1,DIAMOND"
     """
+    
     def __init__(self,input):
         self.input = input
+        self.board =[
+                ['_','_','_'],
+                ['_','_','_'],
+                ['_','_','_']]
         
-    def inputParse(self):
+    def Player_board(self):
+        return self.board
+        
+    def placing(self,input):
+        
         if self.input[0:1] in Directions:
              self.direction = Directions[self.input[0:1]]
              
@@ -61,18 +70,23 @@ class Gameboard: # fake function
         
         
     def Game(self,material,direction):
+      
+      
         pass
-    
+    """
     def PlayerBoard(self):
         board =[
                 ['_','_','_'],
                 ['_','_','_'],
                 ['_','_','_']]
         self.board = board
-        return board
+        return board"""
+    
     
     def Print(self):
-        pass
+        print("\n   1   2   3")
+        for row in self.board:
+            print(row)            
     
     
 def attempts(userInput = 3): # fake function but could be an algo
