@@ -1,0 +1,73 @@
+
+
+
+# brandon fucntion that checks when an item is created
+
+Recipe_STONE_Sword ={ 
+                "stone sword" : 
+                [
+                ['_','_','STONE'],
+                ['_','STONE','_'],
+                ['STICK','_','_']]}
+    
+def Gameboard(): # fake function 
+    board =[
+            ['_','_','STONE'],
+            ['_','STONE','_'],
+            ['STICK','_','_']]
+    return board
+    
+    
+def attempts(userInput = 3): # fake function but could be an algo
+    
+    return 3
+
+def Crafting_check(board,recipeDict,attempted):
+    """ Checks if the current board has the correct matches as the recipe to 
+    create an item
+    
+    This function compares every coordinate (collum and row) of the board to the 
+    coordinate of the recipe. If when itterated through all the coordinates and
+    there is a complete match then the item in crafted
+    
+    Args:
+        board (list(list[str])): our creating board represented as a nested list of 
+        3 list with 3 elements.
+        recipeDict: (dict): a dict containing crafting recipes 
+        attempted (int): the number of attemps the user took to craft the item
+    
+    Returns:
+        str: A message showing the complete board , attempts taken 
+    
+    
+    """
+    recipe = recipeDict["stone sword"]
+    for rows in range(len(board)):
+        for collum in range(len(board[rows])):
+            if board [rows][collum] != recipe[rows][collum]:
+                return 
+            
+        return f'{board} took {attempted} atempts to craft the sword'
+            # we can itterate over the outer list to print row by row 
+                    
+            
+    
+    #if row/collum cordinate = same as recipe this is true
+    # itterate through every row and collum if the recipe and board have the same 
+    # values at the cordinates the item is crafted 
+            
+   
+   
+   
+   
+    """"
+    if board == recipe:
+        return f'{board} took {attempts} atempts to craft the sword }"""
+        
+if __name__ == "__main__":
+    board = Gameboard()
+    atempted = attempts(3)
+    game1 = Crafting_check(board,Recipe_STONE_Sword,atempted)
+    print(game1)
+    
+       
