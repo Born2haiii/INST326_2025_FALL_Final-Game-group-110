@@ -13,29 +13,31 @@ Recipe_STONE_Sword ={
 Recipe_Wood_Sword ={ 
                 "wood sword" : 
                 [
-                ['_','_','Wood'],
-                ['_','Wood','_'],
+                ['_','_','WOOD'],
+                ['_','WOOD','_'],
                 ['STICK','_','_']]}
 
-Recipe_Wood_Sword ={ 
-                "wood sword" : 
+Recipe_Diamond_Sword ={ 
+                "diamond sword" : 
                 [
-                ['_','_','Diamond'],
-                ['_','Diamond','_'],
+                ['_','_','DIAMOND'],
+                ['_','DIAMOND','_'],
                 ['STICK','_','_']]}
 
+SWORD_recipes = (Recipe_Diamond_Sword |
+                 Recipe_STONE_Sword | 
+                 Recipe_Wood_Sword)
 
 
 
+materials = ["Stone", "WOOD", "STICK", "DIAMOND"]
 
-materials = ["Stone", "Wood", "STICK", "Diamond)"]
 
-
-Directions = [
+Directions = {
     "A1":(0,0), "B1":(0,1), "C1":(0,2),
     "A2":(1,0), "B2":(1,1), "C2":(1,2),
     "A3":(2,1), "B3":(2,1), "C3":(2,2),
-]
+}
     
 class Gameboard: # fake function 
     
@@ -44,18 +46,38 @@ class Gameboard: # fake function
     INPUT: " A1,DIAMOND"
     """
     
-    def __init__(self,input):
-        self.input = input
+    def __init__(self):
         self.board =[
                 ['_','_','_'],
                 ['_','_','_'],
                 ['_','_','_']]
         
     def Player_board(self):
+        """returns the current board"""
         return self.board
         
     def placing(self,input):
+        """_summary_
+
+        Args:
+            input (_type_): _description_
+        """
         
+        if ',' not in input:
+            return False
+        
+        raw_coord , material = input.upper().split(",",1)
+        coord = raw_coord
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        """
         if self.input[0:1] in Directions:
              self.direction = Directions[self.input[0:1]]
              
@@ -64,7 +86,7 @@ class Gameboard: # fake function
              
               
             pass
-        
+        """
     def appender(self):
         self.board.index(Directions[self.input[0:1]]).append(materials[self.input[2:]])
         
