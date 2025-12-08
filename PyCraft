@@ -27,7 +27,32 @@ SWORD_recipes = (Recipe_Diamond_Sword |
                  Recipe_Wood_Sword)
 
 
+Pickaxe_Diamond = {"diamond Pickaxe" : 
+                [
+                ['DIAMOND','DIAMOND','DIAMOND'],
+                ['_','STICK','_'],
+                ['_','STICK','_']]}
 
+
+Pickaxe_WOOD = {"WOOD Pickaxe" : 
+                [
+                ['WOOD','WOOD','WOOD'],
+                ['_','STICK','_'],
+                ['_','STICK','_']]}
+
+Pickaxe_STONE = {"STONE Pickaxe" : 
+                [
+                ['STONE','STONE','STONE'],
+                ['_','STICK','_'],
+                ['_','STICK','_']]}
+
+
+
+PIX_recipes = (Pickaxe_Diamond |
+                 Pickaxe_WOOD | 
+                 Pickaxe_STONE)
+
+total_recipes = ( PIX_recipes | SWORD_recipes)
 materials = ["STONE", "WOOD", "STICK", "DIAMOND"]
 
 
@@ -200,11 +225,13 @@ if __name__ == "__main__":
     gb = Gameboard()
     
     gb.placing("C1,STONE")
-    gb.placing("B2,STONE")
-    gb.placing("A3,STICK")
+    gb.placing("B2,STICK")
+    gb.placing("b3,STICK")
+    gb.placing("b1,STONE")
+    gb.placing("a1,STONE")
     gb.Print()
     
-    test = Crafting_check(gb.Player_board(), SWORD_recipes, attempted =3)
+    test = Crafting_check(gb.Player_board(), total_recipes, attempted =3)
     print(test)
 
     
