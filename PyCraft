@@ -1,7 +1,5 @@
 
-
-
-Recipe_STONE_Sword ={ 
+Recipe_STONE_Sword ={
                 "stone sword" : 
                 [
                 ['_','_','STONE'],
@@ -52,15 +50,22 @@ PIX_recipes = (Pickaxe_Diamond |
                  Pickaxe_WOOD | 
                  Pickaxe_STONE)
 
-total_recipes = ( PIX_recipes | SWORD_recipes)
-materials = ["STONE", "WOOD", "STICK", "DIAMOND"]
 
+total_recipes = ( PIX_recipes | SWORD_recipes)
+
+
+materials = {"STONE", "WOOD", "STICK", "DIAMOND"}
+
+
+# maybe would look beter with utf emojis
 
 Directions = {
     "A1":(0,0), "B1":(0,1), "C1":(0,2),
     "A2":(1,0), "B2":(1,1), "C2":(1,2),
     "A3":(2,0), "B3":(2,1), "C3":(2,2),
 }
+
+
     
 class Gameboard: # fake function 
     
@@ -75,9 +80,11 @@ class Gameboard: # fake function
                 ['_','_','_'],
                 ['_','_','_']]
         
+        
     def Player_board(self):
         """returns the current board"""
         return self.board
+        
         
     def placing(self,input):
         """_summary_
@@ -99,57 +106,54 @@ class Gameboard: # fake function
             print("This coordinate is out of bounds")
             return False
         
+        if material not in materials:
+            print("Enter a valid material")
+            return False
+        
         row,col = Directions[coord]
         self.board[row][col] = material
         
         return True
-        
-        
-        
-        
-        
-        
-        
-        if self.input[0:1] in Directions:
-             self.direction = Directions[self.input[0:1]]
-             
-        if self.input[2:] in materials:
-            
-             
-              
-            pass
-        
-        
-            ''''
-    def appender(self):
-        self.board.index(Directions[self.input[0:1]]).append(materials[self.input[2:]])
-        
-        
-    def Game(self,material,direction):
-      
-      
-        pass
-        '''
 
-
-    def PlayerBoard(self):
-        board =[
-                ['_','_','_'],
-                ['_','_','_'],
-                ['_','_','_']]
-        self.board = board
-        return board
     
     
     def Print(self):
-        print("\n   1   2   3")
-        for row in self.board:
-            print(row)            
+            
+        print("\n \n ==========PyCraft============")
+        print ("Please center valid coordinates (A1-C3)")
+        print("materials:[STONE, WOOD, STICK, DIAMOND]")
+        row_names = ["1", "2", "3"]
+        
+       
+        print("\n      A        B        C")
+        
+    
+        print("  ----------------------------")
+        
+        for r in range(3):
+
+            row = self.board[r]
+            row_label = row_names[r]
+            
+
+            formatted_row = "|".join([f" {item:7}" for item in row])
+
+            print(f"{row_label} |{formatted_row}|")
+            
+        
+            print("  -----------------------------")
     
     
-def attempts(userInput = 3): # NEEDS TO GET IMPLEMENTED ***
     
-    return 3
+def attempts(userInput = 0): # NEEDS TO GET IMPLEMENTED ***
+    
+    
+    
+    return 9
+
+
+
+
 
 def Crafting_check(board,recipeDict,attempted):
     """ Checks if the current board has the correct matches as the recipe to 
@@ -182,7 +186,7 @@ def Crafting_check(board,recipeDict,attempted):
             if not match:
                 break
         if match:
-                return f"You have crated a {item} in {attempted} attempts!"
+                return f"\n You have crated a {item} in {attempted} attempts!"
     return None
             # we can itterate over the outer list to print row by row 
                     
@@ -194,17 +198,38 @@ def Crafting_check(board,recipeDict,attempted):
             
    
    
-   
-   
-    """"
-    if board == recipe:
-        return f'{board} took {attempts} atempts to craft the sword }"""
         
 def game():
     """this where the instance of gameboard will be made """
+    gb = Gameboard()
+    max_attempts = attempts(9)
+    attempts_used = 0
+    
             
-    pass
+    
+    while attempts_used < max_attempts:
+        gb.Print()
+
+        user = input(
+            f"Placement {attempts_used + 1}/{max_attempts} : Please press Q to Quit "
+            
+        ).strip()
+
+        if user.upper() == "Q":
+            return
+
+        if not gb.placing(user):
+            continue
         
+        attempts_used += 1 
+        Checking = Crafting_check(gb.Player_board(), total_recipes, attempts_used)
+        
+        if Checking:
+            gb.Print()
+            print(Checking)
+            return
+        
+
         
         
 def menu():
@@ -213,7 +238,7 @@ def menu():
         print("\n 1. Start Game ")
         print("\n 2. End Game ")
         
-        menu_input = input("Please choose 1 or 2").strip()
+        menu_input = input("Please choose 1 or 2: ").strip()
         
         if menu_input == "1":
             game()
@@ -221,18 +246,9 @@ def menu():
         elif menu_input == "2":
             break
     
+    
+    
 if __name__ == "__main__":
-    gb = Gameboard()
-    
-    gb.placing("C1,STONE")
-    gb.placing("B2,STICK")
-    gb.placing("b3,STICK")
-    gb.placing("b1,STONE")
-    gb.placing("a1,STONE")
-    gb.Print()
-    
-    test = Crafting_check(gb.Player_board(), total_recipes, attempted =3)
-    print(test)
-
+ menu()
     
        
