@@ -239,7 +239,7 @@ def Crafting_check(board,recipeDict,attempted):
             if not match:
                 break
         if match:
-                return f"\n You have crated a {item} in {attempted} attempts!"
+                return f"\n You have crafted a {item} in {attempted} attempts!"
     return None
             # we can itterate over the outer list to print row by row 
                     
@@ -288,7 +288,20 @@ def game():
                 item_name = match.group(1)
             user_actions = gb.get_action_history()
             analysis = analyze_fastest_path(item_name, user_actions)
-            
+            print("\n=== Path Analysis ===")
+            if "error" in analysis:
+              print(analysis["error"])
+            else:
+                print(f"Crafted item: {analysis['crafted_item']}")
+                print(f"Your steps: {analysis['user_steps']}")
+                print(f"Optimal steps: {analysis['optimal_steps']}")
+                print(f"Extra steps: {analysis['extra_steps']}")
+                print(f"Efficiency: {analysis['efficiency_percentage']}%")
+                print("Recommended optimal path:")
+                for step in analysis["recommended_path"]:
+                    print("  -", step)
+            print("=====================\n")
+
             #person whos responsible for printing will then use the results of analysis in they print function. Analysis is a dictionary
             
             return
@@ -363,5 +376,6 @@ def menu():
     
 if __name__ == "__main__":
  menu()
-    
+
+
        
