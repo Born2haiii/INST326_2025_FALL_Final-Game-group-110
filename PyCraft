@@ -290,7 +290,7 @@ def game():
             analysis = analyze_fastest_path(item_name, user_actions)
             print("\n=== Path Analysis ===")
             if "error" in analysis:
-              print(analysis["error"])
+                print(analysis["error"])
             else:
                 print(f"Crafted item: {analysis['crafted_item']}")
                 print(f"Your steps: {analysis['user_steps']}")
