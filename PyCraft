@@ -1,3 +1,6 @@
+import re 
+
+
 
 Recipe_STONE_Sword ={
                 "stone sword" : 
@@ -45,6 +48,47 @@ Pickaxe_STONE = {"STONE Pickaxe" :
                 ['_','STICK','_']]}
 
 
+#Optimal paths 
+OPTIMAL_PATHS = {
+    "stone sword": [
+        "place STONE at C1",
+        "place STONE at B2",
+        "place STICK at A3"
+    ],
+    "wood sword": [
+        "place WOOD at C1",
+        "place WOOD at B2",
+        "place STICK at A3"
+    ],
+    "diamond sword": [
+        "place DIAMOND at C1",
+        "place DIAMOND at B2",
+        "place STICK at A3"
+    ],
+    "diamond pickaxe": [
+        "place DIAMOND at A1",
+        "place DIAMOND at B1",
+        "place DIAMOND at C1",
+        "place STICK at B2",
+        "place STICK at B3"
+    ],
+    "wood pickaxe": [
+        "place WOOD at A1",
+        "place WOOD at B1",
+        "place WOOD at C1",
+        "place STICK at B2",
+        "place STICK at B3"
+    ],
+    "stone pickaxe": [
+        "place STONE at A1",
+        "place STONE at B1",
+        "place STONE at C1",
+        "place STICK at B2",
+        "place STICK at B3"
+    ]
+}
+
+
 
 PIX_recipes = (Pickaxe_Diamond |
                  Pickaxe_WOOD | 
@@ -80,7 +124,12 @@ class Gameboard: # fake function
                 ['_','_','_'],
                 ['_','_','_']]
         
+        self.action_history = [] #tracks the user paths 
         
+    def get_action_history(self):  #returns the user path 
+        """Returns the complete action history"""
+        return self.action_history
+    
     def Player_board(self):
         """returns the current board"""
         return self.board
@@ -112,6 +161,10 @@ class Gameboard: # fake function
         
         row,col = Directions[coord]
         self.board[row][col] = material
+        
+        #records the users actions "place material at x location" to check that statement at the end for optimal path
+        action = f"place {material} at {coord}"
+        self.action_history.append(action) #adds the actions
         
         return True
 
@@ -227,10 +280,70 @@ def game():
         if Checking:
             gb.Print()
             print(Checking)
+            
+            #analyzes the path after crafting 
+            
+            match = re.search(r'created a (.+?) in', Checking)
+            if match:
+                item_name = match.group(1)
+            user_actions = gb.get_action_history()
+            analysis = analyze_fastest_path(item_name, user_actions)
+            
+            #person whos responsible for printing will then use the results of analysis in they print function. Analysis is a dictionary
+            
             return
         
+# Ibukun part 
 
+# finding the fastest path based on the user actions aligning with the optimal paths dictionary
+def analyze_fastest_path(crafted_item, user_path):
+    """
+    Compare user's crafting steps with the optimal steps.
+    
+    Args:
+        crafted_item (str): The name of the item that was crafted
+        user_path (list): List of user actions (e.g., ["place STONE at A1", ...])
+    
+    Returns:
+        dict: Contains analysis results:
+            - crafted_item: name of the crafted item
+            - is_optimal: True if user took optimal number of steps
+            - user_steps: number of steps user took
+            - optimal_steps: minimum steps needed
+            - extra_steps: how many extra steps were taken
+            - efficiency_percentage: what % efficient the user was
+            - recommended_path: the optimal path for reference
+    """
+    
+    if crafted_item not in OPTIMAL_PATHS:
+        return {
+            "error": f"No optimal path defined for '{crafted_item}'."
+        }
+
+    optimal_path = OPTIMAL_PATHS[crafted_item]
+    optimal_len = len(optimal_path)
+    user_len = len(user_path)
+
+    is_optimal = (user_len == optimal_len)
+    extra_steps = max(0, user_len - optimal_len)
+    
+    # Calculate efficiency percentage
+    if user_len > 0:
+        efficiency = (optimal_len / user_len) * 100
+    else:
+        efficiency = 0.0
+
+    return {
+        "crafted_item": crafted_item,
+        "is_optimal": is_optimal,
+        "user_steps": user_len,
+        "optimal_steps": optimal_len,
+        "extra_steps": extra_steps,
+        "efficiency_percentage": round(efficiency, 1),
+        "recommended_path": optimal_path
+    }
         
+  
         
 def menu():
     while True:
