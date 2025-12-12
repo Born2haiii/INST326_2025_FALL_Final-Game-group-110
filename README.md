@@ -6,7 +6,7 @@
 ## Project Overview: 
 PyCraft is a console-based crafting game inspired by Minecraft's crafting system. Players use a 3x3 grid to combine materials (STONE, WOOD, STICK, DIAMOND) to craft various items like swords and pickaxes. The game tracks player efficiency and provides feedback on optimal crafting paths.
 
-### `PyCrafr.py` 
+### `PyCraft.py` 
 The main game file containing all game logic, including:
 - **Recipe definitions**: Dictionaries storing all crafting recipes for swords and pickaxes
 - **Gameboard class**: Manages the 3x3 crafting grid and tracks user actions
