@@ -239,7 +239,7 @@ class Gameboard: # fake function
             right = right_panel[i] if i < len(right_panel) else " " * right_width
             print(left + "  ||  " + right)
 
-'''
+
     def Print(self):
 
         print("\n========== PyCraft ==========")
@@ -359,12 +359,8 @@ def game():
             #analyzes the path after crafting 
             analysis = get_crafting_analysis(Checking, gb.get_action_history())
             
-            
-            match = re.search(r'created a (.+?) in', Checking)
-            if match:
-                item_name = match.group(1)
-            user_actions = gb.get_action_history()
-            analysis = analyze_fastest_path(item_name, user_actions)
+           
+           
             print("\n=== Path Analysis ===")
             if "error" in analysis:
                 print(analysis["error"])

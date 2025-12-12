@@ -62,9 +62,9 @@ The main game file containing all game logic, including:
 
 ### Python Programming Resources
 
-**Real Python - Regular Expressions Tutorial**  
+- **Real Python - Regular Expressions Tutorial**  
     https://realpython.com/regex-python/  
-    Used to implement the regex pattern matching in `get_crafting_analysis()` to extract the crafted item name from success messages. Specifically helped with understanding capture groups and the `re.search()` method.
+    Used to implement the regex pattern matching in `get_crafting_analysis()` to extract the crafted item name from success       messages. Specifically helped with understanding capture groups and the `re.search()` method.
 
 
 
