@@ -23,30 +23,38 @@ Recipe_Diamond_Sword ={
                 ['_','DIAMOND','_'],
                 ['STICK','_','_']]}
 
-SWORD_recipes = (Recipe_Diamond_Sword |
-                 Recipe_STONE_Sword | 
-                 Recipe_Wood_Sword)
 
 
-Pickaxe_Diamond = {"diamond Pickaxe" : 
+Pickaxe_Diamond = {"diamond pickaxe" : 
                 [
                 ['DIAMOND','DIAMOND','DIAMOND'],
                 ['_','STICK','_'],
                 ['_','STICK','_']]}
 
 
-Pickaxe_WOOD = {"WOOD Pickaxe" : 
+Pickaxe_WOOD = {"wood pickaxe" : 
                 [
                 ['WOOD','WOOD','WOOD'],
                 ['_','STICK','_'],
                 ['_','STICK','_']]}
 
-Pickaxe_STONE = {"STONE Pickaxe" : 
+Pickaxe_STONE = {"stone pickaxe" : 
                 [
                 ['STONE','STONE','STONE'],
                 ['_','STICK','_'],
                 ['_','STICK','_']]}
 
+SWORD_recipes = (Recipe_Diamond_Sword |
+                 Recipe_STONE_Sword | 
+                 Recipe_Wood_Sword)
+
+PIX_recipes = (Pickaxe_Diamond |
+                 Pickaxe_WOOD | 
+                 Pickaxe_STONE)
+
+total_recipes = ( PIX_recipes | SWORD_recipes)
+
+materials = {"STONE", "WOOD", "STICK", "DIAMOND"}
 
 #Optimal paths 
 OPTIMAL_PATHS = {
@@ -90,15 +98,7 @@ OPTIMAL_PATHS = {
 
 
 
-PIX_recipes = (Pickaxe_Diamond |
-                 Pickaxe_WOOD | 
-                 Pickaxe_STONE)
 
-
-total_recipes = ( PIX_recipes | SWORD_recipes)
-
-
-materials = {"STONE", "WOOD", "STICK", "DIAMOND"}
 
 
 # maybe would look beter with utf emojis
@@ -169,7 +169,35 @@ class Gameboard: # fake function
         return True
 
     
-    
+    def Print(self):
+
+        print("\n========== PyCraft ==========")
+        print("Valid coordinates: A1–C3")
+        print("Materials: STONE, WOOD, STICK, DIAMOND")
+        print('Example: Type "A1, STONE" to place a stone on A1')
+
+        coords = ["A1","B1","C1","A2","B2","C2","A3","B3","C3"]
+        print("Available coordinates:", " ".join(coords))
+
+        if self.action_history:
+            print("Last move:", self.action_history[-1])
+        else:
+            print("Last move: (none yet)")
+
+        row_names = ["1", "2", "3"]
+        print("\n      A        B        C")
+        print("  ----------------------------")
+
+        for r in range(3):
+            row = self.board[r]
+            row_label = row_names[r]
+
+            pretty_row = [("_" if cell == "_" else cell) for cell in row]
+
+            formatted_row = "|".join([f" {item:7}" for item in pretty_row])
+            print(f"{row_label} |{formatted_row}|")
+            print("  ----------------------------")
+
     def Print(self):
             
         print("\n \n ==========PyCraft============")
@@ -283,7 +311,8 @@ def game():
             
             #analyzes the path after crafting 
             
-            match = re.search(r'created a (.+?) in', Checking)
+            match = re.search(r'crafted a (.+?) in', Checking)
+            
             if match:
                 item_name = match.group(1)
             user_actions = gb.get_action_history()
