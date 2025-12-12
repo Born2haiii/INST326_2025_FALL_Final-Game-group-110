@@ -109,6 +109,30 @@ Directions = {
     "A3":(2,0), "B3":(2,1), "C3":(2,2),
 }
 
+def validate_and_consume_material(inventory, material):
+    """
+    Adib Aayan
+
+    Ensures the player has the requested material available.
+    If valid, consumes one unit of the material.
+
+    Args:
+        inventory (dict): material -> remaining count
+        material (str): material being placed
+
+    Returns:
+        bool: True if placement is allowed, False otherwise
+    """
+    if material not in inventory:
+        return False
+
+    if inventory[material] <= 0:
+        return False
+
+    inventory[material] -= 1
+    return True
+
+
 
     
 class Gameboard: # fake function 
@@ -124,7 +148,14 @@ class Gameboard: # fake function
                 ['_','_','_'],
                 ['_','_','_']]
         
-        self.action_history = [] #tracks the user paths 
+        # Player inventory (limited resources)
+        self.inventory = {
+            "STONE": 6,
+            "WOOD": 6,
+            "STICK": 4,
+            "DIAMOND": 2
+        }
+
         
         
     def get_action_history(self):  #returns the user path 
@@ -158,9 +189,15 @@ class Gameboard: # fake function
         if material not in materials:
             print("Enter a valid material")
             return False
-        
-        row,col = Directions[coord]
+
+        # Adib: inventory algorithm
+        if not validate_and_consume_material(self.inventory, material):
+            print(f"Out of {material}! Choose a different material.")
+            return False
+
+        row, col = Directions[coord]
         self.board[row][col] = material
+
         
         #records the users actions "place material at x location" to check that statement at the end for optimal path
         action = f"place {material} at {coord}"

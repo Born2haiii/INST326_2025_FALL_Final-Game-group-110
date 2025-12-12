@@ -14,6 +14,7 @@ The main game file containing all game logic, including:
 - **Analysis helper**: `get_crafting_analysis()` used to feed the result from the checked item into the crafting function
 - **User interface**: Console-based display and interaction system
 - **Game loop**: `menu()` Main menu and gameplay flow
+- **Formatting and Visualization**: `print_game()` function creates a formatted visualization of the gameboard
 
 ## How to use the Program
 
@@ -72,10 +73,10 @@ The main game file containing all game logic, including:
 
 | Method/Function | Primary Author | Techniques Demonstrated |
 |----------------|----------------|------------------------|
-| analyze_fastest_path | Ibukun Adenuga | Conditional expressions|
+| analyze_fastest_path | Ibukun Adenuga | Conditional expressions, len, max,min|
 | get_crafting_analysis | Ibukun Adenuga | Regex|
 | get_action_history | Ibukun Adenuga | None| 
-| panel  | Yushen An  | comprehension, conditional expressions, key functions  |
-| print_game  | Yushen An  | comprehension, conditional expressions  |
+| panel  | Yushen An  | key functions  |
+| print_game  | Yushen An  | comprehension  |
 
 
