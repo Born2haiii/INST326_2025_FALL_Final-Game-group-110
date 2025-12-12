@@ -20,6 +20,7 @@ item_dict = {"WOOD": "W",
 
 def validate_inventory_action(inventory, material):
     """
+    Adib Aayan
     Technique Used: Conditional branching + dictionary state tracking
 
     Checks whether the user can place a material based on remaining inventory.
