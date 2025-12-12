@@ -149,12 +149,11 @@ class Gameboard: # fake function
         raw_coord , raw_material = input.upper().split(",",1)
         coord = raw_coord.strip()
         material = raw_material.strip()
-        
-        
+
         if coord not in Directions:
             print("This coordinate is out of bounds")
             return False
-        
+
         if material not in materials:
             print("Enter a valid material")
             return False
@@ -168,14 +167,55 @@ class Gameboard: # fake function
         
         return True
 
-    def Panel(self, lines, max_width, title=""):
+    def panel(self, lines, max_width, title=""):
 
-        raw = ([title] if title else []) + lines
+        raw = ([title.center(max_width)] if title else []) + lines
         longest = max(raw, key=len) if raw else ""
         width = min(max_width, len(longest))
-        
-        return [s[:width].ljust(width) for s in raw]
+
+        return [s[:width].ljust(max_width) for s in raw]
     
+    def print_game(self, left_width=34, right_width=44):
+ 
+        header = "      A        B        C"
+        border = "  ----------------------------"
+
+        board_lines = [header, border]
+
+        for r in range(3):
+            board_lines.append(
+            f"{r + 1} |" + "|".join(f" {('_' if cell == '_' else cell):7}" for cell in self.board[r]) + "|")
+            board_lines.append(border)
+
+        left_panel = self.panel(board_lines, left_width, title="========== CRAFTING ==========")
+
+        coords_grid = ["A1 B1 C1", "A2 B2 C2", "A3 B3 C3"]
+        last_move = self.action_history[-1] if self.action_history else " "
+        
+        
+        info_lines = [
+            "*Capitalization DOES not MaTTEr",
+            "",
+            "Type \"A1, STONE\" to place a stone on grid A1",
+            "",
+            "Materials: STONE, WOOD, STICK, DIAMOND",
+            "",
+            "Available coordinates:",
+            *coords_grid,
+            "",
+            "Last move:",
+            last_move
+        ]
+        
+        right_panel = self.panel(info_lines, right_width, title="========== HINTS ==========")
+
+        height = max(len(left_panel), len(right_panel))
+        for i in range(height):
+            left = left_panel[i] if i < len(left_panel) else " " * left_width
+            right = right_panel[i] if i < len(right_panel) else " " * right_width
+            print(left + "  ||  " + right)
+
+'''
     def Print(self):
 
         print("\n========== PyCraft ==========")
@@ -204,34 +244,8 @@ class Gameboard: # fake function
             formatted_row = "|".join([f" {item:7}" for item in pretty_row])
             print(f"{row_label} |{formatted_row}|")
             print("  ----------------------------")
+''' 
 
-    def Print(self):
-            
-        print("\n \n ==========PyCraft============")
-        print ("Please center valid coordinates (A1-C3)")
-        print("materials:[STONE, WOOD, STICK, DIAMOND]")
-        row_names = ["1", "2", "3"]
-        
-       
-        print("\n      A        B        C")
-        
-    
-        print("  ----------------------------")
-        
-        for r in range(3):
-
-            row = self.board[r]
-            row_label = row_names[r]
-            
-
-            formatted_row = "|".join([f" {item:7}" for item in row])
-
-            print(f"{row_label} |{formatted_row}|")
-            
-        
-            print("  -----------------------------")
-    
-    
     
 def attempts(userInput = 0): # NEEDS TO GET IMPLEMENTED ***
     
@@ -296,7 +310,7 @@ def game():
             
     
     while attempts_used < max_attempts:
-        gb.Print()
+        gb.print_game()
 
         user = input(
             f"Placement {attempts_used + 1}/{max_attempts} : Please press Q to Quit "
@@ -313,7 +327,7 @@ def game():
         Checking = Crafting_check(gb.Player_board(), total_recipes, attempts_used)
         
         if Checking:
-            gb.Print()
+            gb.print_game()
             print(Checking)
             
             #analyzes the path after crafting 
