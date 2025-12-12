@@ -168,6 +168,13 @@ class Gameboard: # fake function
         
         return True
 
+    def Panel(self, lines, max_width, title=""):
+
+        raw = ([title] if title else []) + lines
+        longest = max(raw, key=len) if raw else ""
+        width = min(max_width, len(longest))
+        
+        return [s[:width].ljust(width) for s in raw]
     
     def Print(self):
 
