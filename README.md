@@ -73,7 +73,7 @@ The main game file containing all game logic, including:
 
 | Method/Function | Primary Author | Techniques Demonstrated |
 |----------------|----------------|------------------------|
-| analyze_fastest_path | Ibukun Adenuga | Conditional expressions|
+| analyze_fastest_path | Ibukun Adenuga | Conditional expressions, len, max,min|
 | get_crafting_analysis | Ibukun Adenuga | Regex|
 | get_action_history | Ibukun Adenuga | None| 
 | panel  | Yushen An  | key functions  |

@@ -384,7 +384,7 @@ def game():
 def analyze_fastest_path(crafted_item, user_path):
     """
     Written by Ibukun Adenuga
-    Technique Used: Conditional expressions
+    Technique Used: Conditional expressions, round, max
     
     Compare user's crafting steps with the optimal steps.
     
