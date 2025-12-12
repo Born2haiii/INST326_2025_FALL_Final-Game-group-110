@@ -148,6 +148,8 @@ class Gameboard: # fake function
                 ['_','_','_'],
                 ['_','_','_']]
         
+        self.action_history = []
+        
         # Player inventory (limited resources)
         self.inventory = {
             "STONE": 6,
@@ -279,6 +281,12 @@ class Gameboard: # fake function
 
     def Print(self):
 
+        """"Example combos 
+                
+                - `B2,STICK` - Places STICK at center
+                - `C3,DIAMOND` - Places DIAMOND at bottom-right corner
+                - `A3,WOOD` - Places WOOD at bottom-left corner
+            """
         print("\n========== PyCraft ==========")
         print("Valid coordinates: A1–C3")
         print("Materials: STONE, WOOD, STICK, DIAMOND")
@@ -309,12 +317,7 @@ class Gameboard: # fake function
             print("  -----------------------------")
     
     
-    
-def attempts(userInput = 0): # NEEDS TO GET IMPLEMENTED ***
-    
-    
-    
-    return 9
+
 
 
 
@@ -393,7 +396,7 @@ def game():
             gb.print_game()
             print(Checking)
          
-            #analyzes the path after crafting 
+            #analyzes the path after crafting a
             analysis = get_crafting_analysis(Checking, gb.get_a1ction_history())
             
            

@@ -42,6 +42,12 @@ The main game file containing all game logic, including:
 - **Input format**: `COORDINATE,MATERIAL`
   - Example: `A1,STONE` places stone at position A1
   - Example: `B2,STICK` places a stick at position B2
+  - Example: 
+    ''' 
+        ['_','_','x'],
+        ['_','x','_'],
+        ['x','_','_']
+    '''
 
 - **Valid coordinates**: A1, A2, A3, B1, B2, B3, C1, C2, C3
 - **Valid materials**: STONE, WOOD, STICK, DIAMOND
