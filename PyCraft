@@ -169,6 +169,17 @@ class Gameboard: # fake function
         return True
 
     def panel(self, lines, max_width, title=""):
+        """
+        Formats a list of strings into a fixed-width panel with an optional title.
+
+        Args:
+            lines (list[str]): A list of strings to be displayed inside the panel.
+            max_width (int): The maximum width allowed for each line.
+            title (str, optional): A title to be displayed at the top of the panel, emtpy string by default.
+
+        Returns:
+            list[str]: A list of formatted strings, each having the same width.
+        """
 
         raw = ([title.center(max_width)] if title else []) + lines
         longest = max(raw, key=len) if raw else ""
@@ -177,7 +188,19 @@ class Gameboard: # fake function
         return [s[:width].ljust(max_width) for s in raw]
     
     def print_game(self, left_width=34, right_width=44):
- 
+        """
+        Displays the current game board along with helpful instructions and
+        game information.
+
+        Args:
+            left_width (int, optional): The width of the game board panel.
+                Defaults to 34.
+            right_width (int, optional): The width of the hint panel.
+                Defaults to 44.
+
+        Returns:
+            None: This function prints the game state directly to the console.
+        """
         header = "      A        B        C"
         border = "  ----------------------------"
 

@@ -1,6 +1,5 @@
 # 326-Final-Game-group-110
 
-
 # PyCraft - Minecraft-Inspired Crafting Game
 
 ## Project Overview: 
@@ -76,3 +75,7 @@ The main game file containing all game logic, including:
 | analyze_fastest_path | Ibukun Adenuga | Conditional expressions|
 | get_crafting_analysis | Ibukun Adenuga | Regex|
 | get_action_history | Ibukun Adenuga | None| 
+| panel  | Yushen An  | comprehension, conditional expressions, key functions  |
+| print_game  | Yushen An  | comprehension, conditional expressions  |
+
+
