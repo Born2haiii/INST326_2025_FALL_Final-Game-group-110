@@ -357,7 +357,7 @@ def game():
             print(Checking)
          
             #analyzes the path after crafting 
-            analysis = get_crafting_analysis(Checking, gb.get_action_history())
+            analysis = get_crafting_analysis(Checking, gb.get_a1ction_history())
             
            
            
