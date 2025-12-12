@@ -126,6 +126,7 @@ class Gameboard: # fake function
         
         self.action_history = [] #tracks the user paths 
         
+        
     def get_action_history(self):  #returns the user path 
         """Returns the complete action history"""
         return self.action_history
@@ -197,12 +198,7 @@ class Gameboard: # fake function
             print("  -----------------------------")
     
     
-    
-def attempts(userInput = 0): # NEEDS TO GET IMPLEMENTED ***
-    
-    
-    
-    return 9
+
 
 
 
@@ -255,7 +251,7 @@ def Crafting_check(board,recipeDict,attempted):
 def game():
     """this where the instance of gameboard will be made """
     gb = Gameboard()
-    max_attempts = attempts(9)
+    max_attempts = 9
     attempts_used = 0
     
             
@@ -280,14 +276,11 @@ def game():
         if Checking:
             gb.Print()
             print(Checking)
-            
+         
             #analyzes the path after crafting 
+            analysis = get_crafting_analysis(Checking, gb.get_action_history())
             
-            match = re.search(r'created a (.+?) in', Checking)
-            if match:
-                item_name = match.group(1)
-            user_actions = gb.get_action_history()
-            analysis = analyze_fastest_path(item_name, user_actions)
+            
             print("\n=== Path Analysis ===")
             if "error" in analysis:
                 print(analysis["error"])
@@ -306,11 +299,13 @@ def game():
             
             return
         
-# Ibukun part 
+        
 
-# finding the fastest path based on the user actions aligning with the optimal paths dictionary
 def analyze_fastest_path(crafted_item, user_path):
     """
+    Written by Ibukun Adenuga
+    Technique Used: Conditional expressions
+    
     Compare user's crafting steps with the optimal steps.
     
     Args:
@@ -328,10 +323,12 @@ def analyze_fastest_path(crafted_item, user_path):
             - recommended_path: the optimal path for reference
     """
     
-    if crafted_item not in OPTIMAL_PATHS:
-        return {
-            "error": f"No optimal path defined for '{crafted_item}'."
-        }
+    
+    error = {"error": f"No optimal path defined for '{crafted_item}'."} if crafted_item not in OPTIMAL_PATHS else None
+    if error:
+        return error
+    
+    
 
     optimal_path = OPTIMAL_PATHS[crafted_item]
     optimal_len = len(optimal_path)
@@ -341,10 +338,7 @@ def analyze_fastest_path(crafted_item, user_path):
     extra_steps = max(0, user_len - optimal_len)
     
     # Calculate efficiency percentage
-    if user_len > 0:
-        efficiency = (optimal_len / user_len) * 100
-    else:
-        efficiency = 0.0
+    efficiency = (optimal_len / user_len) * 100 if user_len > 0 else 0.0
 
     return {
         "crafted_item": crafted_item,
@@ -355,8 +349,33 @@ def analyze_fastest_path(crafted_item, user_path):
         "efficiency_percentage": round(efficiency, 1),
         "recommended_path": optimal_path
     }
+    
+    
         
-  
+def get_crafting_analysis(success_message, action_history):
+    """
+    Author: Ibukun Adenuga
+    Technique Used: Regex
+    Intended as a helper function to the main analysis function, used in within the game function to 
+    extract the infromation from the users message & action history
+    
+    Args:
+        success_message (str): The success message from Crafting_check() 
+        action_history (list): List of user actions from the game board
+    
+    Returns:
+        dict: Analysis results from analyze_fastest_path(), or error dict if item not found
+    """
+    match = re.search(r'crafted a (.+?) in', success_message)
+    
+    if match:
+        item_name = match.group(1)
+        return analyze_fastest_path(item_name, action_history)
+    else:
+        return {"error": "Could not extract item name from success message"}
+    
+    
+    
         
 def menu():
     while True:
