@@ -68,7 +68,6 @@ The main game file containing all game logic, including:
     Used to implement the regex pattern matching in `get_crafting_analysis()` to extract the crafted item name from success messages. Specifically helped with understanding capture groups and the `re.search()` method.
 
 
-### Background Research
 
 ## Attribution
 
