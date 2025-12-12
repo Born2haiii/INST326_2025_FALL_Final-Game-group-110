@@ -21,7 +21,7 @@ The main game file containing all game logic, including:
 **NOTE** This program takes no command line arguments, instead it takes advantage of input statements
 
 
-### Starting the Game
+#### Starting the Game
 1. When you run the program, you'll see the main menu:
     ```
     ==== PyCraft====
