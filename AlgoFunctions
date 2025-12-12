@@ -18,6 +18,29 @@ item_dict = {"WOOD": "W",
              "GOLD_INGOT": "G",
              "DIAMOND": "D"}
 
+def validate_inventory_action(inventory, material):
+    """
+    Technique Used: Conditional branching + dictionary state tracking
+
+    Checks whether the user can place a material based on remaining inventory.
+
+    Args:
+        inventory (dict): material -> remaining count
+        material (str): material the user wants to place
+
+    Returns:
+        bool: True if placement is allowed, False otherwise
+    """
+
+    if material not in inventory:
+        return False
+
+    if inventory[material] <= 0:
+        return False
+
+    return True
+
+
     
 def Gameboard(): # fake function 
     board =[
