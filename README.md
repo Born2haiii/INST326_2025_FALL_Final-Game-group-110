@@ -86,5 +86,9 @@ The main game file containing all game logic, including:
 | print_game  | Yushen An  | comprehension  |
 | placing | Brandon Van | sequence unpacking|
 |print | Brandon Van | list comprehensions |
+| validate_and_consume_material | Adib Aayan | Conditional logic, state mutation |
+| Crafting_check | Adib Aayan | Nested iteration, conditional branching |
+
+
 
 
