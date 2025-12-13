@@ -206,6 +206,48 @@ class Gameboard: # fake function
         self.action_history.append(action) #adds the actions
         
         return True
+    
+    def undo_last_action(self):
+        """
+        Adib Aayan
+        Technique Used: String parsing, conditionals, state reversal
+
+        Undoes the player's most recent placement by:
+        - Removing the item from the board
+        - Restoring the item to the inventory
+        - Removing the action from the action history
+
+        Returns:
+            bool: True if undo succeeded, False if no action to undo
+        """
+
+        if not self.action_history:
+            print("No actions to undo.")
+            return False
+
+        last_action = self.action_history.pop()
+
+        # Expected format: "place MATERIAL at COORD"
+        try:
+            _, material, _, coord = last_action.split()
+        except ValueError:
+            print("Unable to undo last action.")
+            return False
+
+        if coord not in Directions:
+            return False
+
+        row, col = Directions[coord]
+
+        # Clear board cell
+        self.board[row][col] = "_"
+
+        # Restore inventory
+        self.inventory[material] += 1
+
+        print(f"Undid action: {last_action}")
+        return True
+
 
     def panel(self, lines, max_width, title=""):
         """
@@ -323,29 +365,27 @@ class Gameboard: # fake function
 
 
 
-def Crafting_check(board,recipeDict,attempted):
-    """ Checks if the current board has the correct matches as the recipe to 
-    create an item
-    
-    This function compares every coordinate (collum and row) of the board to the 
-    coordinate of the recipe. If when itterated through all the coordinates and
-    there is a complete match then the item in crafted
-    
-    Args:
-        board (list(list[str])): our creating board represented as a nested list of 
-        3 list with 3 elements.
-        recipeDict: (dict): a dict containing crafting recipes 
-        attempted (int): the number of attemps the user took to craft the item
-    
-    Returns:
-        str: A message showing the complete board , attempts taken 
-    
-    
+def Crafting_check(board, recipeDict, attempted):
     """
-    for item  in recipeDict:
-        recipe = recipeDict[item]
-        
+    Adib Aayan
+    Technique Used: Nested iteration + conditional branching
+
+    Checks whether the current 3x3 board matches any known crafting recipe.
+
+    Args:
+        board (list[list[str]]): Current game board
+        recipeDict (dict): Dictionary mapping item names to 3x3 patterns
+        attempted (int): Number of attempts used
+
+    Returns:
+        str or None: Success message if a recipe matches, otherwise None
+    """
+
+    # Loop through each possible recipe
+    for item_name, recipe in recipeDict.items():
         match = True
+
+        # Compare each cell in the 3x3 grid
         for r in range(3):
             for c in range(3):
                 if board[r][c] != recipe[r][c]:
@@ -353,9 +393,13 @@ def Crafting_check(board,recipeDict,attempted):
                     break
             if not match:
                 break
+
+        # If every cell matched, crafting succeeded
         if match:
-                return f"\n You have crafted a {item} in {attempted} attempts!"
+            return f"\n You have crafted a {item_name} in {attempted} attempts!"
+
     return None
+
             # we can itterate over the outer list to print row by row 
                     
             
@@ -386,6 +430,11 @@ def game():
         if user.upper() == "Q":
             return
 
+        if user.upper() == "U":
+            gb.undo_last_action()
+            continue
+
+
         if not gb.placing(user):
             continue
         
@@ -397,7 +446,7 @@ def game():
             print(Checking)
          
             #analyzes the path after crafting a
-            analysis = get_crafting_analysis(Checking, gb.get_a1ction_history())
+            analysis = get_crafting_analysis(Checking, gb.get_action_history())
             
            
            
