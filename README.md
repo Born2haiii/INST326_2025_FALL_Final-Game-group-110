@@ -84,5 +84,7 @@ The main game file containing all game logic, including:
 | get_action_history | Ibukun Adenuga | None| 
 | panel  | Yushen An  | key functions  |
 | print_game  | Yushen An  | comprehension  |
+| placing | Brandon Van | sequence unpacking|
+|print | Brandon Van | list comprehensions |
 
 
